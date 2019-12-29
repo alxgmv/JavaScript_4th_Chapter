@@ -1,10 +1,27 @@
-let date = new Date ()
-let options =  {
-  weekday: 'long',
-  year: 'numeric',
-  month: 'long',
-  day: 'numeric'};
-let strDate = date.toLocaleDateString('ru-RU', options);
+
+function consCreate() {
+  let date = new Date ()
+  let options =  {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'};
+  let strDate = date.toLocaleDateString('ru-RU', options);
+  function declOfNum(n, titles) {
+    return titles[(n % 10 === 1 && n % 100 !== 11) ? 0 : n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20) ? 1 : 2];
+  }
+	let time = strDate + date.getHours() + ' '
+  + declOfNum(date.getHours(), ['часа', 'час', 'часов']) + ' '
+  + date.getMinutes() + ' '
+  + declOfNum(date.getMinutes(),['минута', 'минуты', 'минут']) + ' '
+  + date.getSeconds() + ' '
+  + declOfNum(date.getSeconds(), ['секунда', 'секунды', 'секунд']);
+  return time;
+}
+function output() {
+  console.log(consCreate());
+}
+let myTimer = setInterval (output, 1000);
 // function chas() {
 //   let c = 'час';
 //   let hour = parseInt(date.getHours());
@@ -57,13 +74,3 @@ let strDate = date.toLocaleDateString('ru-RU', options);
 //   }
 //   return s;
 // }
-declOfNumHours(n, titles) {
-  return titles[(n % 10 === 1 && n % 100 !== 11) ? 0 : n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20) ? 1 : 2]
-}
-declOfNumHours(count, ['час', 'часов', 'часа']);
-
-function consCreate() {
-	let time = strDate + declOfNumHours(date.getHours(), ['час', 'часов', 'часа']) + ' ' + date.getMinutes() + ' ' + date.getSeconds();
-	console.log(time);
-}
-let myTimer = setInterval (consCreate, 1000);
